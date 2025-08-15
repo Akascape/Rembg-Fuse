@@ -82,8 +82,6 @@ For more details, visit this repo: https://github.com/danielgatis/rembg
 | Copyright                      | 2025                          |
 | Author                         | Akash Bora                    |
 
-Get more Resolve plugins at [www.akascape.com](www.akascape.com) 👈
-
 ## 🚧 Planned Improvements
 - Streamline Python Script Execution on Windows Eliminate the disruptive console popup by implementing a cleaner method to trigger the processing script. Consider using `comp:DoAction()` for a more integrated Fusion workflow.
 
@@ -93,6 +91,7 @@ Get more Resolve plugins at [www.akascape.com](www.akascape.com) 👈
   
 Whether you're fixing bugs, suggesting enhancements, or adding new features—your input is valued. Feel free to fork, improve, and submit pull requests to help evolve this tool.
 
+Get more Resolve plugins at [www.akascape.com](www.akascape.com) 👈
 ## Thank You
 
 
