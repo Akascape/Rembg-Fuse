@@ -43,7 +43,8 @@ import rembg
 
 rembg.new_session("model_name") # replace model name with the actual model name
 ```
-
+- Also write the _model_name_ in the models.txt file (newline)
+  
 4. Open Fusion page in DaVinci Resolve
 5. Search for the Rembg plugin in the node menu (_Shift+Spacebar_)
 6. Add the node with some footage
