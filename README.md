@@ -50,7 +50,7 @@ rembg.new_session("model_name") # replace model name with the actual model name
 7. Select the model and let the plugin do its work
 8. The removed background will be displayed through the media out if connected
 
-## Available Models
+## 📦 Available Models
 | Model Name             | Description                                                         | Estimated Download Size      |
 |------------------------|---------------------------------------------------------------------|------------------------------|
 | u2net                  | Standard U2-Net model for high-quality general segmentation         | 168 MB                       |
@@ -68,9 +68,9 @@ rembg.new_session("model_name") # replace model name with the actual model name
 
 For more details, visit this repo: https://github.com/danielgatis/rembg
 
-## Demo
+## 👁️ Demo
 
-## Overview
+## 🌱 Overview
 
 | Fuse Version                   | 0.1                           |
 |:-------------------------------|:------------------------------|
@@ -82,6 +82,13 @@ For more details, visit this repo: https://github.com/danielgatis/rembg
 | Author                         | Akash Bora                    |
 
 Get more Resolve plugins at [www.akascape.com](www.akascape.com) 👈
+
+## 🚧 Planned Improvements
+- Streamline Python Script Execution on Windows Eliminate the disruptive console popup by implementing a cleaner method to trigger the processing script. Consider using `comp:DoAction()` for a more integrated Fusion workflow.
+
+- Optimize Model Reloading and improve overall performance during repeated operations.
+
+- Refactor Image I/O Handling, replace the use of the Clip() method with direct image data passing. Maybe consider the `GetPixel()` method.
 
 ## Thank You
 
