@@ -63,6 +63,8 @@ rembg.new_session("model_name") # replace model name with the actual model name
 | birefnet-portrait      | BiRefNet model tailored for portrait segmentation                   | 928 MB                       |
 | ben2-base              | BEN2 base model for efficient background removal                    | 213 MB                       |
 
+For more details, visit this repo: https://github.com/danielgatis/rembg
+
 ## Demo
 
 ## Overview
