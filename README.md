@@ -14,12 +14,14 @@ Free and open-source plugin that integrates the power of [Rembg](https://github.
 ## ⬇️ Download
 
 ### [<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Akascape/Rembg-Fuse?&color=white&label=Download%20Source%20Code&logo=Python&logoColor=yellow&style=for-the-badge"  width="400">](https://github.com/Akascape/Rembg-Fuse/archive/refs/heads/main.zip)
+<br> _Don't forget to leave a_ ⭐
 
 ## ⚙️ How to Install
 
 1. First install the latest python3 from [www.python.org](www.python.org) 
-2. Download/Clone the Rembg-Fuse Repo in the fuse folder of DaVinci Resolve. [Know How](https://youtube.com/shorts/OFHyc48WOqc?feature=shared)
-3. Follow the Rembg setup:
+2. Download/Clone the Rembg-Fuse Repo
+3. Paste the folder in the fuse plugin directory of Resolve. [Know How](https://youtube.com/shorts/OFHyc48WOqc?feature=shared)
+4. Follow the Rembg setup:
    
 ### > Automatic Setup for beginners
 An easy-to-use Python script has been developed to simplify the Rembg setup. Just open the setup.py file—either directly in Python or via the Fuse interface — and follow the installation steps.
@@ -69,7 +71,16 @@ For more details, visit this repo: https://github.com/danielgatis/rembg
 ## Demo
 
 ## Overview
+| Fuse Version | 0.1 |
+| Setup Version | 1.0 |
+| DaVinci Resolve Requirement | Free or Studio - 18+ |
+| License | MIT |
+| Copyright | 2025 |
+| Author | Akash Bora |
 
+Get more Resolve plugins at [www.akascape.com](www.akascape.com) 👈
+
+## Thank You
 
 
 
