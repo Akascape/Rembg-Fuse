@@ -76,7 +76,7 @@ For more details, visit this repo: https://github.com/danielgatis/rembg
 |:-------------------------------|:------------------------------|
 | Fuse Version                   | 0.1                           |
 | Setup Version                  | 1.0                           |
-| DaVinci Resolve Requirement    | Free or Studio – 18+          |
+| DaVinci Resolve Requirement    | Free or Studio : 18+          |
 | License                        | MIT                           |
 | Copyright                      | 2025                          |
 | Author                         | Akash 
