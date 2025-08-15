@@ -91,7 +91,7 @@ For more details, visit this repo: https://github.com/danielgatis/rembg
   
 Whether you're fixing bugs, suggesting enhancements, or adding new features—your input is valued. Feel free to fork, improve, and submit pull requests to help evolve this tool.
 
-Get more Resolve plugins at [www.akascape.com](www.akascape.com) 👈
+**Get more Resolve plugins at [www.akascape.com](www.akascape.com) 👈**
 ## Thank You
 
 
