@@ -29,7 +29,7 @@ An easy-to-use Python script has been developed to simplify the Rembg setup. Jus
 ### > Or Setup Manually
 If you encounter an error or prefer to manually install Rembg and its models, follow the steps below:
 
-- Install rembg using pip/pip3 command
+* * Install rembg using pip/pip3 command
 
 ```
 pip install rembg
@@ -37,13 +37,13 @@ pip install rembg
 <br> For CUDA support, use `rembg[gpu]`
 <br> For AMD/ROCM support, use `rembg[rocm]`
 
-- Download the models using this script commands:
+* * Download the models using this script commands:
 ```python
 import rembg
 
 rembg.new_session("model_name") # replace model name with the actual model name
 ```
-- Also write the _model_name_ in the models.txt file (newline)
+* *  Also write the _model_name_ in the models.txt file (newline)
   
 4. Open Fusion page in DaVinci Resolve
 5. Search for the Rembg plugin in the node menu (_Shift+Spacebar_)
