@@ -89,6 +89,8 @@ Get more Resolve plugins at [www.akascape.com](www.akascape.com) 👈
 - Optimize Model Reloading and improve overall performance during repeated operations.
 
 - Refactor Image I/O Handling, replace the use of the Clip() method with direct image data passing. Maybe consider the `GetPixel()` method.
+  
+Whether you're fixing bugs, suggesting enhancements, or adding new features—your input is valued. Feel free to fork, improve, and submit pull requests to help evolve this tool.
 
 ## Thank You
 
