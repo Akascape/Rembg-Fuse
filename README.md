@@ -83,7 +83,7 @@ For more details, visit this repo: https://github.com/danielgatis/rembg
 | Author                         | Akash Bora                    |
 
 ## 🚧 Planned Improvements
-- Streamline Python Script Execution on Windows Eliminate the disruptive console popup by implementing a cleaner method to trigger the processing script. Consider using `comp:DoAction()` for a more integrated Fusion workflow.
+- Streamline Python Script Execution on Windows Eliminate the disruptive console popup by implementing a cleaner method to trigger the processing script. Maybe consider using `comp:DoAction()` for a more integrated Fusion workflow.
 
 - Optimize Model Reloading and improve overall performance during repeated operations.
 
