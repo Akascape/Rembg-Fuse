@@ -71,12 +71,15 @@ For more details, visit this repo: https://github.com/danielgatis/rembg
 ## Demo
 
 ## Overview
-| Fuse Version | 0.1 |
-| Setup Version | 1.0 |
-| DaVinci Resolve Requirement | Free or Studio - 18+ |
-| License | MIT |
-| Copyright | 2025 |
-| Author | Akash Bora |
+
+| Fuse Version                   | 0.1                           |
+|:--------------------------- ---|:------------------------------|
+| Fuse Version                   | 0.1                           |
+| Setup Version                  | 1.0                           |
+| DaVinci Resolve Requirement    | Free or Studio – 18+          |
+| License                        | MIT                           |
+| Copyright                      | 2025                          |
+| Author                         | Akash 
 
 Get more Resolve plugins at [www.akascape.com](www.akascape.com) 👈
 
