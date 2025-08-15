@@ -46,7 +46,23 @@ rembg.new_session("model_name") # replace model name with the actual model name
 6. Add the node with some footage
 7. Select the model and let the plugin do its work
 8. The removed background will be displayed through the media out if connected
-   
+
+## Available Models
+| Model Name             | Description                                                         | Estimated Download Size      |
+|------------------------|---------------------------------------------------------------------|------------------------------|
+| u2net                  | Standard U2-Net model for high-quality general segmentation         | 168 MB                       |
+| u2netp                 | Lightweight U2-Net for faster, lower-resource inference             | 4 MB                         |
+| u2net_human_seg        | U2-Net model specialized for human segmentation                     | 168 MB                       |
+| u2net_cloth_seg        | U2-Net model specialized for clothing segmentation                  | 168 MB                       |
+| isnet-general-use      | ISNet model for general-purpose image segmentation                  | 170 MB                       |
+| isnet-anime            | ISNet model optimized for anime-style image segmentation            | 168 MB                       |
+| silueta                | Silueta model for silhouette and background removal                 | 43 MB                        |
+| sam                    | Segment Anything Model (SAM) ViT decoder for versatile segmentation | 400 MB                       |
+| birefnet-general       | BiRefNet model for high-quality general segmentation                | 928 MB                       |
+| birefnet-general-lite  | Lightweight BiRefNet for general segmentation                       | 214 MB                       |
+| birefnet-portrait      | BiRefNet model tailored for portrait segmentation                   | 928 MB                       |
+| ben2-base              | BEN2 base model for efficient background removal                    | 213 MB                       |
+
 ## Demo
 
 ## Overview
