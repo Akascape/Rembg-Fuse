@@ -26,8 +26,27 @@ An easy-to-use python application is developed for setuping rembg. Open the setu
 
 ### Or Manual Setup
 Incase you ran into some erro, or want to manually install rembg and its models, follow this setup:
+- Install rembg using pip/pip3 command
 
+```
+pip install rembg
+```
+<br> For CUDA support, use `rembg[gpu]`
+<br> For AMD/ROCM support, use `rembg[rocm]`
 
+- Download the models using this script commands:
+```python
+import rembg
+
+rembg.new_session("model_name") # replace model name with the actual model name
+```
+
+4. Open Fusion page in DaVinci Resolve
+5. Search for the Rembg plugin in the node menu (_Shift+Spacebar_)
+6. Add the node with some footage
+7. Select the model and let the plugin do its work
+8. The removed background will be displayed through the media out if connected
+   
 ## Demo
 
 ## Overview
