@@ -21,11 +21,12 @@ Free and open-source plugin that integrates the power of [Rembg](https://github.
 2. Download/Clone the Rembg-Fuse Repo in the fuse folder of DaVinci Resolve. [Know How](https://youtube.com/shorts/OFHyc48WOqc?feature=shared)
 3. Follow the Rembg setup:
    
-### Automatic Setup for beginners
-An easy-to-use python application is developed for setuping rembg. Open the setup.py file in python or (through the fuse) and follow the installation. 
+### > Automatic Setup for beginners
+An easy-to-use Python script has been developed to simplify the Rembg setup. Just open the setup.py file—either directly in Python or via the Fuse interface — and follow the installation steps.
 
-### Or Manual Setup
-Incase you ran into some erro, or want to manually install rembg and its models, follow this setup:
+### > Or Setup Manually
+If you encounter an error or prefer to manually install Rembg and its models, follow the steps below:
+
 - Install rembg using pip/pip3 command
 
 ```
