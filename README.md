@@ -22,13 +22,13 @@ Free and open-source plugin that integrates the power of [rembg](https://github.
 
 1. First install the latest python3 from [www.python.org](www.python.org) 
 2. Download/Clone the Rembg-Fuse Repo
-3. Paste the folder in the fuse plugin directory of Resolve. [Know How](https://youtube.com/shorts/OFHyc48WOqc?feature=shared)
-4. Follow the Rembg setup, either using rembg_manager.py or manually.
+3. Paste the `Rembg` folder in the fuse plugin directory of Resolve. [Know How](https://youtube.com/shorts/OFHyc48WOqc?feature=shared)
+4. Follow the Rembg setup, either using `rembg_manager.py` or install manually.
 5. Open the Fusion page in DaVinci Resolve
 6. Search for the Rembg plugin in the node menu (_Shift+Spacebar_)
-7. Add the node with any footage
+7. Connect the rembg node with any footage
 8. Select the model and let the plugin do its work
-9. The removed background will be displayed through the media out (if connected)
+9. The output will be displayed through the media out (if connected)
     
 ### ⮞ Automatic Setup for beginners [[Rembg_Manager](https://github.com/Akascape/Rembg-Fuse/blob/main/Rembg/rembg_manager.py)]
 An easy-to-use Python application has been developed to simplify the Rembg setup. Just open the `rembg_manager.py` file—either directly in Python or via the Fuse interface — and follow the installation steps.
@@ -88,6 +88,10 @@ Uploading soon on YT...
 | License                        | MIT                           |
 | Copyright                      | 2025                          |
 | Author                         | Akash Bora                    |
+
+## Debugging
+
+To view plugin logs and troubleshoot issues, open the console through `Fusion page ⮞ Workspace ⮞ Console`. Make sure not to check the `Disable Logging` option in the fuse.
 
 ## 🚧 Planned Improvements
 - Streamline Python Script Execution on Windows Eliminate the disruptive console popup by implementing a cleaner method to trigger the processing script. Maybe consider using `comp:DoAction()` or `comp:Execute()` for a more integrated Fusion workflow.
