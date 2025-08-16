@@ -26,6 +26,8 @@ Free and open-source plugin that integrates the power of [rembg](https://github.
 ### > Automatic Setup for beginners
 An easy-to-use Python script has been developed to simplify the Rembg setup. Just open the setup.py file—either directly in Python or via the Fuse interface — and follow the installation steps.
 
+<br> ![demo_rembg_manager](https://github.com/user-attachments/assets/a5de323e-6bf9-4823-ba59-fb7e29ddad65)
+
 ### > Or Setup Manually
 If you encounter an error or prefer to manually install Rembg and its models, follow the steps below:
 
