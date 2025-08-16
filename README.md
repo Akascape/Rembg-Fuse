@@ -28,7 +28,8 @@ An easy-to-use Python script has been developed to simplify the Rembg setup. Jus
 
 <br> ![demo_rembg_manager](https://github.com/user-attachments/assets/a5de323e-6bf9-4823-ba59-fb7e29ddad65)
 
-### ⮞ Or Setup Manually
+<details> 
+<summary><span style="font-size:1.25em"><strong>Or Setup Manually</strong></span></summary>
 If you encounter any error or prefer to manually install Rembg and its models, follow the steps below:
 
 * * Install rembg using pip/pip3 command
@@ -46,7 +47,7 @@ import rembg
 rembg.new_session("model_name") # replace model name with the actual model name
 ```
 * *  Also write the _model_name_ in the models.txt file (newline)
-  
+</details> 
 5. Open the Fusion page in DaVinci Resolve
 6. Search for the Rembg plugin in the node menu (_Shift+Spacebar_)
 7. Add the node with any footage
