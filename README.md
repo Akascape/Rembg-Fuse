@@ -76,7 +76,8 @@ rembg.new_session("model_name") # replace model name with the actual model name
 For more details, visit this repo: https://github.com/danielgatis/rembg
 
 ## 🪄 Video Demo
-Uploading soon on YT...
+
+[<img src="https://img.youtube.com/vi/Lv8DGq7qbx4/0.jpg" width=40% height=40%>](https://youtu.be/Lv8DGq7qbx4)
 
 ## 🌱 Overview
 
