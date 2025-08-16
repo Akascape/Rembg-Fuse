@@ -89,7 +89,7 @@ Uploading soon on YT...
 | Copyright                      | 2025                          |
 | Author                         | Akash Bora                    |
 
-## Debugging
+## 🐞 Debugging
 
 To view plugin logs and troubleshoot issues, open the console through `Fusion page ⮞ Workspace ⮞ Console`. Make sure not to check the `Disable Logging` option in the fuse.
 
