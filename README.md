@@ -10,7 +10,7 @@ Free and open-source plugin that integrates the power of [rembg](https://github.
 - 🔍 AI-powered background removal using U-2-Net
 - 🎞️ Designed for DaVinci Resolve Fusion workflows
 - 🛠️ Lightweight, script-based implementation (Python + Fuse)
-- 🧩 Easy to integrate
+- 🧩 Easy to integrate, works with both Free and Studio version
 - 🆓 100% Free and Open Source
 
 ## ⬇️ Download
