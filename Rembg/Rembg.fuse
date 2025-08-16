@@ -169,7 +169,7 @@ function Create()
         end
 
         if setupPath then
-            io.popen(command .. " 2>&1")
+            os.execute(command .. " 2>&1")
         else
             print("Setup file not found at: " .. setupPath)
         end
@@ -441,4 +441,5 @@ function ProcessWithPython(inputImage, scriptPath, model, keepTransparency, hexC
     pcall(function() os.remove(outputImagePath .. ".png") end)
 
     return processedImage
+
 end
