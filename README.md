@@ -94,11 +94,12 @@ Uploading soon on YT...
 To view plugin logs and troubleshoot issues, open the console through `Fusion page ⮞ Workspace ⮞ Console`. Make sure not to check the `Disable Logging` option in the fuse.
 
 ## 🚧 Planned Improvements
-- Streamline Python Script Execution on Windows Eliminate the disruptive console popup by implementing a cleaner method to trigger the processing script. Maybe consider using `comp:DoAction()` or `comp:Execute()` for a more integrated Fusion workflow.
+- Streamline Python Script Execution on Windows. Eliminate the disruptive console popup by implementing a cleaner method to trigger the processing script. Maybe consider using `comp:DoAction()` or `comp:Execute()` for a more integrated Fusion workflow.
 
 - Optimize Model Reloading and improve overall performance during repeated operations.
 
 - Refactor Image I/O Handling, replace the use of the `Clip()` method with direct image data passing. Maybe consider the `GetPixel()` method.
+- Add a python path parameter for fixing python version conflicts.
   
 Whether you're fixing bugs, suggesting enhancements, or adding new features—your input is valued. Feel free to fork, improve, and submit pull requests to help evolve this tool.
 
