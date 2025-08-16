@@ -3,6 +3,8 @@
 ## 🎬 **Automatic Background Remover for DaVinci Resolve Fusion**  
 Free and open-source plugin that integrates the power of [rembg](https://github.com/danielgatis/rembg) into Fusion workflows for seamless background removal.
 
+<img width="1918" height="752" alt="Screenshot 2025-08-16 172203" src="https://github.com/user-attachments/assets/bc2019c4-3a2c-426f-a128-e8de8b60f209" />
+
 ## ✨ Features
 
 - 🔍 AI-powered background removal using U-2-Net
