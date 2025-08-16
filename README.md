@@ -38,7 +38,7 @@ An easy-to-use Python application has been developed to simplify the Rembg setup
    
 <br> If you encounter any error or prefer to manually install Rembg and its models, follow the steps below:
 
-* * Install rembg using pip/pip3 command
+* Install rembg using pip/pip3 command
 
 ```
 pip install rembg
@@ -46,13 +46,13 @@ pip install rembg
 <br> For CUDA support, use `rembg[gpu]`
 <br> For AMD/ROCM support, use `rembg[rocm]`
 
-* * Download the models using this script commands:
+* Download the models using this script commands:
 ```python
 import rembg
 
 rembg.new_session("model_name") # replace model name with the actual model name
 ```
-* *  Also write the _model_name_ in the models.txt file (newline)
+* Also write the _model_name_ in the models.txt file (newline)
 </details> 
 
 ## 📦 Available Models
