@@ -818,6 +818,7 @@ class RemBGSetupApp(tk.Tk):
         if self.active_downloads == 0:
             messagebox.showinfo("Downloads Finished", "Model downloads are complete.")
             self.create_second_page()
+            self.downloaded_models = check_downloaded_models()
             
     # --------------------------------------------------------------------
     # TESTING UTILITY
@@ -1022,4 +1023,5 @@ class RemBGSetupApp(tk.Tk):
 if __name__ == "__main__":
     app = RemBGSetupApp()
     app.focus_force()
+
     app.mainloop()
