@@ -21,16 +21,22 @@ Free and open-source plugin that integrates the power of [rembg](https://github.
 1. First install the latest python3 from [www.python.org](www.python.org) 
 2. Download/Clone the Rembg-Fuse Repo
 3. Paste the folder in the fuse plugin directory of Resolve. [Know How](https://youtube.com/shorts/OFHyc48WOqc?feature=shared)
-4. Follow the Rembg setup:
-   
-### ⮞ Automatic Setup for beginners
+4. Follow the Rembg setup, either using rembg_manager.py or manually.
+5. Open the Fusion page in DaVinci Resolve
+6. Search for the Rembg plugin in the node menu (_Shift+Spacebar_)
+7. Add the node with any footage
+8. Select the model and let the plugin do its work
+9. The removed background will be displayed through the media out (if connected)
+    
+### ⮞ Automatic Setup for beginners [Rembg_Manager]
 An easy-to-use Python script has been developed to simplify the Rembg setup. Just open the setup.py file—either directly in Python or via the Fuse interface — and follow the installation steps.
 
 <br> ![demo_rembg_manager](https://github.com/user-attachments/assets/a5de323e-6bf9-4823-ba59-fb7e29ddad65)
 
 <details> 
 <summary><span style="font-size:1.25em"><strong>Or Setup Manually</strong></span></summary>
-If you encounter any error or prefer to manually install Rembg and its models, follow the steps below:
+   
+<br> If you encounter any error or prefer to manually install Rembg and its models, follow the steps below:
 
 * * Install rembg using pip/pip3 command
 
@@ -48,11 +54,6 @@ rembg.new_session("model_name") # replace model name with the actual model name
 ```
 * *  Also write the _model_name_ in the models.txt file (newline)
 </details> 
-5. Open the Fusion page in DaVinci Resolve
-6. Search for the Rembg plugin in the node menu (_Shift+Spacebar_)
-7. Add the node with any footage
-8. Select the model and let the plugin do its work
-9. The removed background will be displayed through the media out (if connected)
 
 ## 📦 Available Models
 | Model Name             | Description                                                         | Estimated Download Size      |
