@@ -82,7 +82,7 @@ Uploading soon on YT...
 
 | Fuse Version                   | 0.1                           |
 |:-------------------------------|:------------------------------|
-| Fuse Version                   | 0.1                           |
+| Script Version                 | 0.1                           |
 | Setup Version                  | 1.0                           |
 | DaVinci Resolve Requirement    | Free or Studio : 18+          |
 | License                        | MIT                           |
