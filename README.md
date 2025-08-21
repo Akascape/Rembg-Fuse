@@ -81,7 +81,7 @@ For more details, visit this repo: https://github.com/danielgatis/rembg
 
 ## 🌱 Overview
 
-| Fuse Version                   | 0.1                           |
+| Fuse Version                   | 0.2                           |
 |:-------------------------------|:------------------------------|
 | Script Version                 | 0.1                           |
 | Setup Version                  | 1.0                           |
