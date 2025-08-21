@@ -401,7 +401,6 @@ function ProcessWithPython(inputImage, scriptPath, model, keepTransparency, hexC
             scriptPath, inputImagePath, outputImagePath, model, keepTransparency, hexColor)
     end
 
-    print(os.getenv("OS"))
     -- Execute Python script
     local handle = io.popen(command .. " 2>&1") 
     local result = ""
@@ -456,3 +455,4 @@ function ProcessWithPython(inputImage, scriptPath, model, keepTransparency, hexC
     return processedImage
 
 end
+
