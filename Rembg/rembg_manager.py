@@ -3,8 +3,8 @@ RemBG Setup Manager
 A GUI application to manage RemBG installation and model downloads.
 
 Author: Akascape
-Version: 1.0
-License: MIT License - Copyright (c) 2025 Akascape
+Version: 1.1
+License: MIT License - Copyright (c) 2026 Akascape
 """
 
 # importing built-in libraries
@@ -49,14 +49,18 @@ def is_rembg_installed():
 def install_rembg(option, callback):
     def run():
         pip_cmd = [sys.executable, "-m", "pip", "install"]
-        if option == "CPU : Normal Installation":
+        
+        # --- MODIFIED LOGIC START ---
+        if option == "CPU":
             pip_cmd += ["rembg[cpu]"]
-        elif option == "GPU (CUDA) : Requires NVIDIA GPU":
+        elif option == "GPU":
             pip_cmd += ["rembg[gpu]"]
-        elif option == "ROCm : Only for AMD GPUs":
+        elif option == "ROCm":
             pip_cmd += ["rembg[rocm]"]
         else:
             pip_cmd += ["rembg"]
+
+        # --- MODIFIED LOGIC END ---
         try:
             proc = subprocess.Popen(pip_cmd)
             proc.wait()
@@ -80,10 +84,12 @@ def download_model(model_name, done_callback, self):
             print(f"Successfully downloaded or verified model: {model_name}")
             done_callback(True)
             self.is_installing = False  
+            messagebox.showinfo("Download Complete", f"Model '{model_name}' downloaded successfully.")
         except Exception as e:
             print(f"Failed to download model '{model_name}': {e}")
             done_callback(False)
             self.is_installing = False 
+            messagebox.showerror("Download Failed", f"Failed to download model '{model_name}'. Please try again.")
 
     threading.Thread(target=run, daemon=True).start()
 
@@ -339,7 +345,7 @@ class RemBGSetupApp(tk.Tk):
         # Main container
         main_frame = ttk.Frame(self, style='Main.TFrame')
         main_frame.pack(expand=True, fill="both", padx=30, pady=30)
-        
+
         # Header section
         header_frame = ttk.Frame(main_frame, style='Dark.TFrame')
         header_frame.pack(fill="x", pady=(0, 30))
@@ -349,8 +355,8 @@ class RemBGSetupApp(tk.Tk):
         title_label.pack(pady=(20, 10))
         
         subtitle_label = ttk.Label(header_frame, 
-                                      text="by Akascape | v1.0",
-                                      style='Subtitle.TLabel')
+                                     text="by Akascape | v1.1",
+                                     style='Subtitle.TLabel')
         subtitle_label.pack(pady=(0, 20))
         
         # Content area
@@ -358,12 +364,24 @@ class RemBGSetupApp(tk.Tk):
         content_frame.pack(expand=True, fill="both")
         
         if self.rembg_installed:
-     
+            
             status_frame = ttk.Frame(content_frame, style='Dark.TFrame')
             status_frame.pack(expand=True, fill="both", padx=40, pady=40)
-            
+        
+            uninstall_btn = tk.Button(status_frame, text="🗑️", justify="right",
+                                    bg=self.colors['bg_secondary'],
+                                    font=(self.font_family, 10),
+                                    fg='white',
+                                    activebackground=self.colors['bg_secondary'],
+                                    activeforeground='white',
+                                    width=4,
+                                    bd=0, 
+                                    cursor="hand2",
+                                    command=self.confirm_uninstall)
+            uninstall_btn.place(relx=1.0, y=5, x=-1, anchor="ne")
+
             success_label = tk.Label(status_frame, text="✅", 
-                                     font=('Arial', 24),
+                                     font=(self.font_family, 24),
                                      bg=self.colors['bg_secondary'],
                                      fg=self.colors['text_primary'])
             success_label.pack(pady=(40, 20))
@@ -392,7 +410,7 @@ class RemBGSetupApp(tk.Tk):
                                   command=self.create_test_page,
                                   style='Action.TButton')
             test_btn.pack(side="left", padx=5)
-            
+
         else:
             install_frame = ttk.Frame(content_frame, style='Dark.TFrame')
             install_frame.pack(expand=True, fill="both", padx=20, pady=20)
@@ -401,7 +419,7 @@ class RemBGSetupApp(tk.Tk):
             header_container.pack(fill="x", pady=(20, 30), padx=5)
             
             install_icon = tk.Label(header_container, text="⚙️", 
-                                    font=('Arial', 20),
+                                    font=(self.font_family, 20),
                                     bg=self.colors['bg_secondary'],
                                     fg=self.colors['text_primary'])
             install_icon.pack(pady=(0, 10))
@@ -423,27 +441,30 @@ class RemBGSetupApp(tk.Tk):
             options_container = tk.Frame(install_frame, bg=self.colors['bg_secondary'])
             options_container.pack(fill="both", pady=(0, 5), padx=2, expand=True)
             
-            self.install_type = tk.StringVar(value="CPU : Normal Installation")
+            self.install_type = tk.StringVar(value="Standard Installation")
             
+            # --- MODIFIED OPTIONS LIST START ---
             options = [
-                ("CPU : Normal Installation", "💻", "Standard installation", "Uses only CPU Processing. No GPU acceleration"),
-                ("GPU (CUDA) : Requires NVIDIA GPU", "🚀", "CUDA Support", "GPU acceleration for NVIDIA users"),
-                ("ROCm : Only for AMD GPUs", "⚡", "ROCM Support", "GPU acceleration for AMD Radeon users")
+                ("Standard", "💻", "Standard Installation", "Basic installation. Best compatibility."),
+                ("CPU", "🔴", "CPU Only", "Optimized for CPU processing - rembg[cpu]"),
+                ("GPU", "🚀", "CUDA \nSupport", "GPU acceleration for NVIDIA GPU users - rembg[gpu]"),
+                ("ROCm", "⚡", "ROCM \nSupport", "GPU acceleration for AMD Radeon users - rembg[rocm]")
             ]
+            # --- MODIFIED OPTIONS LIST END ---
             
             self.option_frames = []
             
             for i, (value, icon, title, description) in enumerate(options):
                 # Create option card
                 option_card = tk.Frame(options_container, 
-                                       bg=self.colors['bg_tertiary'],
-                                       relief='solid',
-                                       bd=1,
-                                       highlightbackground=self.colors['border'])
+                                     bg=self.colors['bg_tertiary'],
+                                     relief='solid',
+                                     bd=1,
+                                     highlightbackground=self.colors['border'])
                 option_card.pack(fill="both", pady=5, padx=2, side="left", expand=True)
 
                 inner_frame = tk.Frame(option_card, bg=self.colors['bg_tertiary'])
-                inner_frame.pack(fill="both", expand=True, padx=20, pady=15)
+                inner_frame.pack(fill="both", expand=True, padx=10, pady=15)
                 
                 top_row = tk.Frame(inner_frame, bg=self.colors['bg_tertiary'])
                 top_row.pack(fill="x", anchor='w')
@@ -459,18 +480,18 @@ class RemBGSetupApp(tk.Tk):
                                        activeforeground=self.colors['text_primary'],
                                        relief='flat',
                                        command=lambda: self.update_option_selection())
-                radio.pack(side="left", padx=(0, 10))
+                radio.pack(side="left", padx=(0, 5))
                 
                 icon_label = tk.Label(top_row, 
                                       text=icon,
-                                      font=('Arial', 16),
+                                      font=(self.font_family, 16),
                                       bg=self.colors['bg_tertiary'],
                                       fg=self.colors['text_primary'])
-                icon_label.pack(side="left", padx=(0, 10))
+                icon_label.pack(side="left", padx=(0, 5))
                 
                 title_label = tk.Label(top_row,
                                        text=title,
-                                       font=(self.font_family, 11, 'bold'),
+                                       font=(self.font_family, 10, 'bold'),
                                        bg=self.colors['bg_tertiary'],
                                        fg=self.colors['text_primary'],
                                        wraplength=100, 
@@ -479,10 +500,10 @@ class RemBGSetupApp(tk.Tk):
                 
                 desc_label = tk.Label(inner_frame,
                                       text=description,
-                                      font=(self.font_family, 9),
+                                      font=(self.font_family, 8),
                                       bg=self.colors['bg_tertiary'],
                                       fg=self.colors['text_secondary'],
-                                      wraplength=200,  
+                                      wraplength=140,  
                                       justify='left')
                 desc_label.pack(anchor="w", pady=(8, 0))
                 
@@ -513,7 +534,27 @@ class RemBGSetupApp(tk.Tk):
                                           command=self.start_install,
                                           style='Action.TButton')
             self.install_btn.pack(fill="x", side="bottom")
+
+    def confirm_uninstall(self):
+        """Confirm with the user and uninstall rembg."""
+        if messagebox.askyesno("Uninstall RemBG?", "Are you sure you want to uninstall RemBG from this device?"):
+            self.uninstall_rembg()
+
+    def uninstall_rembg(self):
+        """Uninstalls rembg using pip and closes the app."""
+        try:
+            # Run pip uninstall command
+            # -y flag is used to automatically confirm uninstallation
+            subprocess.check_call([sys.executable, "-m", "pip", "uninstall", "rembg", "-y"])
             
+            messagebox.showinfo("Uninstall Successful", 
+                              "RemBG has been successfully uninstalled.\nThe application will now close.")
+            self.destroy() # Close the application
+            
+        except subprocess.CalledProcessError as e:
+            messagebox.showerror("Uninstall Failed", f"Failed to uninstall RemBG.\nError: {e}")
+        except Exception as e:
+             messagebox.showerror("Error", f"An unexpected error occurred: {e}")
 
     def update_option_selection(self):
         """Update visual feedback for selected option"""
@@ -539,7 +580,8 @@ class RemBGSetupApp(tk.Tk):
                 elif isinstance(child, (tk.Label, tk.Radiobutton)):
                     child.config(bg=bg_color)
                     if isinstance(child, tk.Label):
-                        if child.cget('font').split()[0] == self.font_family and int(child.cget('font').split()[1]) == 9:  # Description labels
+                        # Adjust condition for font size 8 (description)
+                        if child.cget('font').split()[0] == self.font_family and int(child.cget('font').split()[1]) == 8:  # Description labels
                             child.config(fg=self.colors['text_secondary'] if bg_color == self.colors['bg_tertiary'] else '#e0e0e0')
                         else:
                             child.config(fg=fg_color)
@@ -581,8 +623,8 @@ class RemBGSetupApp(tk.Tk):
         title_label.pack(pady=(20, 5))
         
         subtitle_label = ttk.Label(header_frame, 
-                                      text="Choose models to download for different use cases",
-                                      style='Subtitle.TLabel')
+                                     text="Choose models to download for different use cases",
+                                     style='Subtitle.TLabel')
         subtitle_label.pack(pady=(0, 20))
         
         models_container = ttk.Frame(main_frame, style='Dark.TFrame')

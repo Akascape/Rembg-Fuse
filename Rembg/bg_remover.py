@@ -2,8 +2,8 @@
 bg_remover.py
 =================
 Author: Akascape
-License: MIT License - Copyright (c) 2025 Akascape
-Script Version: 0.1
+License: MIT License - Copyright (c) 2026 Akascape
+Script Version: 0.2
 
 Background Remover Script for DaVinci Resolve Fusion
 This script uses the rembg library to remove backgrounds from images.
@@ -56,14 +56,13 @@ class FuseBackgroundRemover:
             print(f"[{timestamp}] {message.encode('ascii', 'ignore').decode('ascii')}")
             sys.stdout.flush()
     
-    def process_image(self, input_path, output_path, keep_transparency=True, bg_color=None):
+    def process_image(self, input_path, output_path):
         """Remove background from image file."""
         try:
             # Log processing start
             self.log("-"*50)
             self.log(f"[INPUT] Input path: {input_path}")
             self.log(f"[OUTPUT] Output path: {output_path}")
-            self.log(f"[CONFIG] Keep transparency: {'Yes' if keep_transparency else 'No'}")
             
             # Check if input file exists
             if not os.path.exists(input_path):
@@ -91,35 +90,14 @@ class FuseBackgroundRemover:
             processing_time = time.time() - start_time
             self.log(f"[SUCCESS] Background removal completed in {processing_time:.2f} seconds")
             self.log(f"[INFO] Output image: {result.size[0]}x{result.size[1]} pixels, mode: {result.mode}")
-            
-            # Handle transparency based on user preference
-            self.log("[STEP 4/4] Processing transparency settings...")
-            
-            if keep_transparency:
-                # Save with transparency (RGBA)
-                result.save(output_path, "PNG")
-                self.log(f"[SUCCESS] Saved with transparency: {os.path.basename(output_path)}")
-            else:
-                # Convert to RGB with white background
-                if result.mode == 'RGBA':
-                    # Composite the image onto white background
-                    result_rgb = Image.alpha_composite(
-                        Image.new('RGBA', result.size, bg_color), 
-                        result
-                    ).convert('RGB')
-                    result_rgb.save(output_path, "PNG")
-                    self.log(f"[SUCCESS] Saved without transparency: {os.path.basename(output_path)}")
-                else:
-                    result.save(output_path, "PNG")
-                    self.log(f"[SUCCESS] Saved RGB image: {os.path.basename(output_path)}")
-            
+            # Save with transparency (PNG)
+            result.save(output_path, "PNG")
+            self.log(f"[SUCCESS] Saved with transparency: {os.path.basename(output_path)}")
             # Verify output file was created
             if not os.path.exists(output_path):
                 self.log("[ERROR] Output file generation failed!")
                 return False
-            
             self.log("-"*50)
-            
             return True
             
         except Exception as e:
@@ -143,11 +121,9 @@ def main():
 
     input_path = sys.argv[1]
     output_path = sys.argv[2]
+    input_path = sys.argv[1]
+    output_path = sys.argv[2]
     model_name = sys.argv[3]
-    keep_transparency = int(sys.argv[4]) == 1
-    bg_color = sys.argv[5]
-
-    # Validate input file
     if not os.path.exists(input_path):
         log_main(f"[ERROR] Input file does not exist: {input_path}")
         sys.exit(1)
@@ -158,8 +134,8 @@ def main():
         bg_remover = FuseBackgroundRemover(model_name)
         
         # Process the image
-        success = bg_remover.process_image(input_path, output_path, keep_transparency, bg_color)
-        
+        # Process the image
+        success = bg_remover.process_image(input_path, output_path)
         if success:
             log_main("[COMPLETE] Background removal completed successfully!")
             sys.exit(0)
