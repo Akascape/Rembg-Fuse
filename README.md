@@ -55,6 +55,7 @@ import rembg
 rembg.new_session("model_name") # replace model name with the actual model name
 ```
 * Also write the _model_name_ in the models.txt file (newline)
+<br> For fixing issues, check this page: [wiki](https://github.com/Akascape/Rembg-Fuse/wiki/Troubleshooting-Guide)
 </details> 
 
 ## 📦 Available Models
@@ -81,18 +82,19 @@ For more details, visit this repo: https://github.com/danielgatis/rembg
 
 ## 🌱 Overview
 
-| Fuse Version                   | 0.2                           |
+| Fuse Version                   | 0.3                           |
 |:-------------------------------|:------------------------------|
-| Script Version                 | 0.1                           |
-| Setup Version                  | 1.0                           |
+| Script Version                 | 0.2                           |
+| Setup Version                  | 1.1                           |
 | DaVinci Resolve Requirement    | Free or Studio : 18+          |
 | License                        | MIT                           |
-| Copyright                      | 2025                          |
+| Copyright                      | 2026                          |
 | Author                         | Akash Bora                    |
 
 ## 🐞 Debugging
 
 To view plugin logs and troubleshoot issues, open the console through `Fusion page ⮞ Workspace ⮞ Console`. Make sure not to check the `Disable Logging` option in the fuse.
+<br>📙 Here is full troubleshooting guide you can follow: [wiki](https://github.com/Akascape/Rembg-Fuse/wiki/Troubleshooting-Guide)
 
 ## 🚧 Planned Improvements
 - Streamline Python Script Execution on Windows. Eliminate the disruptive console popup by implementing a cleaner method to trigger the processing script. Maybe consider using `comp:DoAction()` or `comp:Execute()` for a more integrated Fusion workflow.
@@ -100,7 +102,7 @@ To view plugin logs and troubleshoot issues, open the console through `Fusion pa
 - Optimize Model Reloading and improve overall performance during repeated operations.
 
 - Refactor Image I/O Handling, replace the use of the `Clip()` method with direct image data passing. Maybe consider the `GetPixel()` method.
-- Add a python path parameter for fixing python version conflicts.
+- ~~Add a python path parameter for fixing python version conflicts.~~
   
 Whether you're fixing bugs, suggesting enhancements, or adding new features—your input is valued. Feel free to fork, improve, and submit pull requests to help evolve this tool.
 
