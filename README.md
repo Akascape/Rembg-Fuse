@@ -20,7 +20,7 @@ Free and open-source plugin that integrates the power of [rembg](https://github.
 
 ## ⚙️ How to Install
 
-1. First install the latest python3 from [www.python.org](https://www.python.org) 
+1. First install the python3 from [www.python.org](https://www.python.org). Version Requirement: `python: >=3.11, <3.14`
 2. Download/Clone the Rembg-Fuse Repo
 3. Paste the `Rembg` folder in the fuse plugin directory of Resolve. [Know How](https://youtube.com/shorts/OFHyc48WOqc?feature=shared)
 4. Follow the Rembg setup, either using `rembg_manager.py` or install manually.
