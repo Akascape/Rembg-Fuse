@@ -3,7 +3,7 @@ bg_remover.py
 =================
 Author: Akascape
 License: MIT License - Copyright (c) 2026 Akascape
-Script Version: 0.3
+Script Version: 0.2
 
 Background Remover Script for DaVinci Resolve Fusion
 This script uses the rembg library to remove backgrounds from images.
@@ -29,65 +29,21 @@ class FuseBackgroundRemover:
 
         self.log("="*50)
         self.log(f"Loading background removal model: {model_name}")
-        
-        # Check GPU availability and configure providers
-        self._check_and_configure_gpu()
 
         try:
-            # Use providers parameter to enable GPU if available
-            self.session = rembg.new_session(model_name, providers=self.providers)
+            self.session = rembg.new_session(model_name)
             self.log("[SUCCESS] Model loaded successfully!")
-            self.log(f"[INFO] Using providers: {self.providers}")
 
         except Exception as e:
             self.log(f"[ERROR] Error loading model {model_name}: {e}")
             self.log("[WARNING] Falling back to u2netp model")
         
             try:
-                self.session = rembg.new_session('u2netp', providers=self.providers)
+                self.session = rembg.new_session('u2netp')
                 self.log("[SUCCESS] Fallback model loaded successfully!")
             except Exception as fallback_error:
                 self.log(f"[CRITICAL] Critical error: Could not load any model: {fallback_error}")
                 raise fallback_error
-    
-    def _check_and_configure_gpu(self):
-        """Check GPU availability and configure ONNX Runtime providers"""
-        try:
-            import onnxruntime as ort
-            available_providers = ort.get_available_providers()
-            self.log(f"[INFO] Available ONNX providers: {available_providers}")
-            
-            # Priority order: TensorRT (best for RTX) > CUDA > ROCm > CPU
-            self.providers = []
-            gpu_found = False
-            
-            if 'TensorrtExecutionProvider' in available_providers:
-                self.providers.append('TensorrtExecutionProvider')
-                self.log("[INFO] GPU detected: TensorRT will be used (FASTEST for RTX GPUs)")
-                gpu_found = True
-            elif 'CUDAExecutionProvider' in available_providers:
-                self.providers.append('CUDAExecutionProvider')
-                self.log("[INFO] GPU detected: NVIDIA CUDA will be used")
-                gpu_found = True
-            elif 'ROCMExecutionProvider' in available_providers:
-                self.providers.append('ROCMExecutionProvider')
-                self.log("[INFO] GPU detected: AMD ROCm will be used")
-                gpu_found = True
-            
-            # Always add CPU as fallback
-            self.providers.append('CPUExecutionProvider')
-            
-            if not gpu_found:
-                self.log("[WARNING] No GPU detected! Using CPU only (slow)")
-                self.log("[WARNING] Make sure you have onnxruntime-gpu installed")
-                self.log("[WARNING] Run: pip install onnxruntime-gpu")
-                
-        except ImportError:
-            self.log("[WARNING] onnxruntime not properly installed")
-            self.providers = None  # Let rembg use default
-        except Exception as e:
-            self.log(f"[WARNING] GPU configuration error: {e}")
-            self.providers = None  # Let rembg use default
     
     def log(self, message):
         """Print log message with timestamp and flush immediately."""
