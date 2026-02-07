@@ -47,7 +47,6 @@ pip install rembg
 ```
 <br> For CUDA support, use `rembg[gpu]`
 <br> For AMD/ROCM support, use `rembg[rocm]`
-Must check this for GPU acceleration: [wiki/GPU-Installation](https://github.com/Akascape/Rembg-Fuse/wiki/GPU%E2%80%90Installation)
 
 * Download the models using this script commands:
 ```python
