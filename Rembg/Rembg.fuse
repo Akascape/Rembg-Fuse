@@ -256,6 +256,11 @@ end
 
 function NotifyChanged(inp, param, time)
 
+    -- Resolve calls NotifyChanged for every input during project load with param = nil.
+    -- Accessing param.Value without this guard throws a Lua error that aborts startup
+    -- (models never load). Bail out early when there's no param to act on.
+    if not param then return end
+
     -- Save/load Python path like ffmpeg
     if inp == InPython then
         local python_location = self.Comp:MapPath('Fuses:/Rembg/python_path.txt')
@@ -474,8 +479,11 @@ function ProcessWithPython(inputImage, scriptPath, model, frameTime)
     
     if handle then
         result = handle:read("*a")
-        executionSuccess = handle:close()
-        
+        handle:close()
+        -- io.popen:close() return is unreliable on macOS/LuaJIT (returns nil even on
+        -- exit code 0), so detect success from the script's stdout marker instead.
+        executionSuccess = result and result:find("%[COMPLETE%]") ~= nil
+
         if executionSuccess then
             log("Python script executed successfully")
             if result and result ~= "" then
