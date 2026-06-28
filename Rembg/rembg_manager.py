@@ -801,6 +801,24 @@ class RemBGSetupApp(tk.Tk):
         
         canvas.bind('<Configure>', on_canvas_configure)
 
+        # Mouse scroll bindings for the model box
+        def on_mouse_wheel(event):
+            if event.num == 4:
+                canvas.yview_scroll(-1, "units")
+            elif event.num == 5:
+                canvas.yview_scroll(1, "units")
+            else:
+                canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+        def bind_mouse_wheel(widget):
+            widget.bind("<MouseWheel>", on_mouse_wheel)
+            widget.bind("<Button-4>", on_mouse_wheel)
+            widget.bind("<Button-5>", on_mouse_wheel)
+            for child in widget.winfo_children():
+                bind_mouse_wheel(child)
+
+        bind_mouse_wheel(canvas_frame)
+
     def _toggle_second_page_controls(self, state='normal'):
         """Enable or disable all interactive widgets on the model management page."""
 
