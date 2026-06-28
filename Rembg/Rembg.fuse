@@ -488,7 +488,7 @@ function ProcessWithPython(inputImage, scriptPath, model, frameTime)
         command = string.format('start /B /MIN %s "%s" "%s.jpg" "%s.png" "%s"', 
             pyexe, scriptPath, inputImagePath, outputImagePath, model)
     elseif isMac then
-        command = string.format('/bin/zsh -l -c "%s \"%s\" \"%s.jpg\" \"%s.png\" \"%s\""',
+        command = string.format('/bin/zsh -l -c "%s \\"%s\\" \\"%s.jpg\\" \\"%s.png\\" \\"%s\\""',
             pyexe, scriptPath, inputImagePath, outputImagePath, model)
     else
         command = string.format('%s "%s" "%s.jpg" "%s.png" "%s"', 
