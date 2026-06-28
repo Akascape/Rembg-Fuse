@@ -3,13 +3,20 @@ RemBG Setup Manager
 A GUI application to manage RemBG installation and model downloads.
 
 Author: Akascape
-Version: 1.1
+Version: 1.2
 License: MIT License - Copyright (c) 2026 Akascape
 """
 
 # importing built-in libraries
 import os
 import sys
+
+# Handle pythonw.exe environment where stdout and stderr are None
+if sys.stdout is None:
+    sys.stdout = open(os.devnull, "w", encoding="utf-8")
+if sys.stderr is None:
+    sys.stderr = open(os.devnull, "w", encoding="utf-8")
+
 import subprocess
 import threading
 import io 
@@ -99,7 +106,6 @@ def check_downloaded_models():
     models_txt_path = Path(__file__).parent / "models.txt"
 
     try:
-        import rembg
 
         # Get the user's home directory
         home_dir = Path.home()
@@ -256,7 +262,8 @@ class RemBGSetupApp(tk.Tk):
                           focuscolor=self.colors['accent'], 
                           font=(self.font_family, 10, 'bold'),
                           padding=(20, 8),
-                          borderwidth=0)
+                          borderwidth=0,
+                          width=-1)
         
         style.map('Action.TButton',
                   background=[('active', self.colors['accent_hover']),
@@ -269,7 +276,8 @@ class RemBGSetupApp(tk.Tk):
                         focuscolor=self.colors['accent'],
                         padding=(10, 5),
                         borderwidth=1,
-                        relief='flat')
+                        relief='flat',
+                        width=-1)
         
         style.map('Secondary.TButton',
                   background=[('active', self.colors['accent_hover']),
@@ -772,6 +780,11 @@ class RemBGSetupApp(tk.Tk):
                                  style='Secondary.TButton')
         self.open_folder_btn.pack(side="left", padx=(10, 0))
 
+        self.refresh_btn = ttk.Button(button_frame, text="Refresh", 
+                                 command=self.refresh_model_list,
+                                 style='Secondary.TButton')
+        self.refresh_btn.pack(side="left", padx=(10, 0))
+
         self.download_btn = ttk.Button(button_frame, 
                                        text="⇣ Download Selected Models",
                                        command=self.download_selected_models,
@@ -791,13 +804,17 @@ class RemBGSetupApp(tk.Tk):
     def _toggle_second_page_controls(self, state='normal'):
         """Enable or disable all interactive widgets on the model management page."""
 
-        for btn in [self.select_all_btn, self.select_none_btn, self.open_folder_btn, self.back_btn, self.download_btn]:
+        for btn in [self.select_all_btn, self.select_none_btn, self.open_folder_btn, self.refresh_btn, self.back_btn, self.download_btn]:
             btn.config(state=state)
 
         for name, cb in self.model_checkboxes.items():
             if name not in self.downloaded_models:
                 cb.config(state=state)
                 
+    def refresh_model_list(self):
+        self.downloaded_models = check_downloaded_models()
+        self.create_second_page()
+        
     def select_all_models(self):
         for name, var in self.model_vars.items():
             if name not in self.downloaded_models:  # Only select non-downloaded models
@@ -868,6 +885,7 @@ class RemBGSetupApp(tk.Tk):
 
     def create_test_page(self):
         """Creates the page for testing RemBG functionality."""
+        self.downloaded_models = check_downloaded_models()
         for widget in self.winfo_children():
             widget.destroy()
 
