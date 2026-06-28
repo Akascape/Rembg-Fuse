@@ -502,7 +502,8 @@ function ProcessWithPython(inputImage, scriptPath, model, frameTime)
     
     if handle then
         result = handle:read("*a")
-        executionSuccess = handle:close()
+        handle:close()
+        executionSuccess = result and result:find("%[COMPLETE%]") ~= nil
         
         if executionSuccess then
             log("Python script executed successfully")
