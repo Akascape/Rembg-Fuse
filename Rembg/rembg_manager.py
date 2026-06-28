@@ -363,7 +363,7 @@ class RemBGSetupApp(tk.Tk):
         title_label.pack(pady=(20, 10))
         
         subtitle_label = ttk.Label(header_frame, 
-                                     text="by Akascape | v1.1",
+                                     text="by Akascape | v1.2",
                                      style='Subtitle.TLabel')
         subtitle_label.pack(pady=(0, 20))
         
