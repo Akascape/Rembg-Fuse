@@ -105,17 +105,16 @@ def check_downloaded_models():
     downloaded = set()
     models_txt_path = Path(__file__).parent / "models.txt"
 
-    # Get the user's home directory
-    home_dir = Path.home()
-    models_dir = home_dir / ".rembg" / "models"
-
     try:
-        # Check if the models directory exists
-        if models_dir.exists() and models_dir.is_dir():
+    # Get the user's home directory
+        home_dir = Path.home()
+        models_dir = home_dir / ".rembg" / "models"
 
+            # Check if the models directory exists
+        if models_dir.exists() and models_dir.is_dir():
             # Get all files in the models directory
             model_files = list(models_dir.iterdir())
-
+            
             # Check each model from our MODELS list
             for model_name, _, model_id in MODELS:
                 for file_path in model_files:
