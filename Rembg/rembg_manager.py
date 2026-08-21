@@ -106,24 +106,25 @@ def check_downloaded_models():
     models_txt_path = Path(__file__).parent / "models.txt"
 
     try:
-
-        # Get the user's home directory
+    # Get the user's home directory
         home_dir = Path.home()
-        models_dir = home_dir / ".u2net"
+        models_dir = home_dir / ".rembg" / "models"
 
-        # Check if the models directory exists
+            # Check if the models directory exists
         if models_dir.exists() and models_dir.is_dir():
             # Get all files in the models directory
             model_files = list(models_dir.iterdir())
-
+            
             # Check each model from our MODELS list
             for model_name, _, model_id in MODELS:
                 for file_path in model_files:
-                    if ((model_id == file_path.stem) and
-                        file_path.suffix in ['.pth', '.onnx'] and
+                    if (model_id == file_path.stem):
+                        # Manualy append the file name with the .onnx suffix. Probably needs rework.
+                        file_path = file_path / f"{model_id}.onnx"
+                        if (file_path.suffix in ['.pth', '.onnx'] and
                         file_path.is_file()):
-                        downloaded.add(model_name)
-                        break
+                            downloaded.add(model_name)
+                            break
 
         # Save the downloaded model names to models.txt (one per line)
         with open(models_txt_path, "w", encoding="utf-8") as f:
