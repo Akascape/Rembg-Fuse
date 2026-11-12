@@ -3,7 +3,7 @@ RemBG Setup Manager
 A GUI application to manage RemBG installation and model downloads.
 
 Author: Akascape
-Version: 1.2
+Version: 1.3
 License: MIT License - Copyright (c) 2026 Akascape
 """
 
@@ -363,7 +363,7 @@ class RemBGSetupApp(tk.Tk):
         title_label.pack(pady=(20, 10))
         
         subtitle_label = ttk.Label(header_frame, 
-                                     text="by Akascape | v1.2",
+                                     text="by Akascape | v1.3",
                                      style='Subtitle.TLabel')
         subtitle_label.pack(pady=(0, 20))
         
@@ -412,6 +412,12 @@ class RemBGSetupApp(tk.Tk):
                                     command=self.create_second_page,
                                     style='Action.TButton')
             manage_btn.pack(side="left", padx=5)
+
+            refresh_models_btn = ttk.Button(action_buttons_frame, 
+                                            text="Refresh Models 🔄",
+                                            command=self.refresh_and_notify_models,
+                                            style='Action.TButton')
+            refresh_models_btn.pack(side="left", padx=5)
 
             test_btn = ttk.Button(action_buttons_frame, 
                                   text="Test Rembg 🧪",
@@ -832,6 +838,11 @@ class RemBGSetupApp(tk.Tk):
     def refresh_model_list(self):
         self.downloaded_models = check_downloaded_models()
         self.create_second_page()
+        messagebox.showinfo("Models Refreshed", "Models have been refreshed.\nClick the reload button in the fuse to update the model list.")
+
+    def refresh_and_notify_models(self):
+        self.downloaded_models = check_downloaded_models()
+        messagebox.showinfo("Models Refreshed", "Models have been refreshed.\nClick the reload button in the fuse to update the model list.")
         
     def select_all_models(self):
         for name, var in self.model_vars.items():

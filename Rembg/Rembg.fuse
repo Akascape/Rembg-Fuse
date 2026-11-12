@@ -2,8 +2,8 @@
 Fuse Plugin for DaVinci Resolve
 --------------------------------------------------------------
 Fuse Name: Rembg
-Date Created: 2026-06-28
-Fuse Version: 0.4
+Date Created: 2026-11-12
+Fuse Version: 0.5
 Author: Akascape
 Fuse Category: Effect
 Description: Background removal using rembg Python library
@@ -11,7 +11,7 @@ Author URL: www.akascape.com
 --------------------------------------------------------------
 --]]--
 
-version = 0.4
+version = 0.5
 fuse_data = [=[
 This is a Fuse for DaVinci Resolve that uses the rembg Python library to remove backgrounds from images.
 
@@ -157,39 +157,6 @@ function Create()
         INPID_InputControl = "ButtonControl",
         INP_External = false,
         INP_Passive = true,
-        BTNCS_Execute  = [=[
-
-        local setupPath = comp:MapPath('Fuses:/Rembg/rembg_manager.py')
-        print("Running script: "..setupPath)
-
-        local command
-        local isWindows = os.getenv("OS") and string.find(os.getenv("OS"), "Windows")
-        local isMac = jit and jit.os == "OSX"
-        local isLinux = not isWindows and not isMac
-
-        local pythonpath = tool:GetData("python_path")
-        local default_py = tool:GetData("default_pyexe") or "python"
-        local pyexe = pythonpath and pythonpath:match("%S+") or default_py
-        if pyexe == "pythonw" and default_py == "python" then
-            pyexe = "python"
-        end
-
-        if isWindows then
-            command = 'start /B /MIN '.. pyexe .. ' "' .. setupPath .. '"'
-        elseif isMac then
-            command = '/bin/zsh -l -c "' .. pyexe .. ' \\"' .. setupPath .. '\\""'
-        elseif isLinux then
-            command = pyexe .. ' "' .. setupPath .. '"'
-        end
-        
-        if setupPath then
-            os.execute(command)
-        else
-            print("Setup file not found at: " .. setupPath)
-        end
-        
-        ]=],
-        INP_Passive = true,
         INP_DoNotifyChanged = true,
     })
 
@@ -325,6 +292,37 @@ function NotifyChanged(inp, param, time)
     end
 
     if inp == InSetup then
+        if param.Value == 1 then
+            local setupPath = self.Comp:MapPath('Fuses:/Rembg/rembg_manager.py')
+            print("Running script: "..setupPath)
+
+            local command
+            local isWindows = os.getenv("OS") and string.find(os.getenv("OS"), "Windows")
+            local isMac = jit and jit.os == "OSX"
+            local isLinux = not isWindows and not isMac
+
+            local pythonpath = self:GetData("python_path")
+            local default_py = self:GetData("default_pyexe") or "python"
+            local pyexe = pythonpath and pythonpath:match("%S+") or default_py
+            if pyexe == "pythonw" and default_py == "python" then
+                pyexe = "python"
+            end
+
+            if isWindows then
+                command = 'start /B /MIN '.. pyexe .. ' "' .. setupPath .. '"'
+            elseif isMac then
+                command = '/bin/zsh -l -c "' .. pyexe .. ' \\"' .. setupPath .. '\\""'
+            elseif isLinux then
+                command = pyexe .. ' "' .. setupPath .. '"'
+            end
+            
+            if setupPath then
+                os.execute(command)
+            else
+                print("Setup file not found at: " .. setupPath)
+            end
+        end
+
         if param.Value==0 then
 
             local available_models = self:GetData("models") or {}
