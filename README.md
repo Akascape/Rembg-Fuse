@@ -82,10 +82,10 @@ For more details, visit this repo: https://github.com/danielgatis/rembg
 
 ## 🌱 Overview
 
-| Fuse Version                   | 0.4                           |
+| Fuse Version                   | 0.5                           |
 |:-------------------------------|:------------------------------|
 | Script Version                 | 0.3                           |
-| Setup Version                  | 1.2                           |
+| Setup Version                  | 1.3                           |
 | DaVinci Resolve Requirement    | Free or Studio : 18+          |
 | License                        | MIT                           |
 | Copyright                      | 2026                          |
