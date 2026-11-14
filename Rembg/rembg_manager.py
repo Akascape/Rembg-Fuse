@@ -3,7 +3,7 @@ RemBG Setup Manager
 A GUI application to manage RemBG installation and model downloads.
 
 Author: Akascape
-Version: 1.3
+Version: 1.4
 License: MIT License - Copyright (c) 2026 Akascape
 """
 
@@ -89,16 +89,33 @@ def download_model(model_name, done_callback, self):
             self.is_installing = True 
             rembg.new_session(model_name)
             print(f"Successfully downloaded or verified model: {model_name}")
+            self.is_installing = False
             done_callback(True)
-            self.is_installing = False  
-            messagebox.showinfo("Download Complete", f"Model '{model_name}' downloaded successfully.")
         except Exception as e:
             print(f"Failed to download model '{model_name}': {e}")
+            self.is_installing = False
             done_callback(False)
-            self.is_installing = False 
-            messagebox.showerror("Download Failed", f"Failed to download model '{model_name}'. Please try again.")
 
     threading.Thread(target=run, daemon=True).start()
+
+def get_model_directories():
+    """Return all possible model directories (new rembg structure and legacy ~/.u2net structure)."""
+    home_dir = Path.home()
+    dirs = []
+
+    # New rembg layout: ~/.rembg/models (honoring REMBG_HOME and XDG_DATA_HOME)
+    if os.getenv("REMBG_HOME"):
+        dirs.append(Path(os.environ["REMBG_HOME"]) / "models")
+    elif os.getenv("XDG_DATA_HOME"):
+        dirs.append(Path(os.environ["XDG_DATA_HOME"]) / "rembg" / "models")
+    dirs.append(home_dir / ".rembg" / "models")
+
+    # Legacy layout: ~/.u2net (honoring U2NET_HOME)
+    if os.getenv("U2NET_HOME"):
+        dirs.append(Path(os.environ["U2NET_HOME"]))
+    dirs.append(home_dir / ".u2net")
+
+    return dirs
 
 def check_downloaded_models():
     """Check which models are actually downloaded and save them to models.txt"""
@@ -106,24 +123,28 @@ def check_downloaded_models():
     models_txt_path = Path(__file__).parent / "models.txt"
 
     try:
+        model_dirs = get_model_directories()
 
-        # Get the user's home directory
-        home_dir = Path.home()
-        models_dir = home_dir / ".u2net"
+        for model_name, _, model_id in MODELS:
+            # Check across each potential model directory
+            for base_dir in model_dirs:
+                if not (base_dir.exists() and base_dir.is_dir()):
+                    continue
 
-        # Check if the models directory exists
-        if models_dir.exists() and models_dir.is_dir():
-            # Get all files in the models directory
-            model_files = list(models_dir.iterdir())
-
-            # Check each model from our MODELS list
-            for model_name, _, model_id in MODELS:
-                for file_path in model_files:
-                    if ((model_id == file_path.stem) and
-                        file_path.suffix in ['.pth', '.onnx'] and
-                        file_path.is_file()):
+                # 1. New rembg behavior (>= v2.0.80): ~/.rembg/models/<model_name>/<model_file>.onnx
+                sub_dir = base_dir / model_name
+                if sub_dir.exists() and sub_dir.is_dir():
+                    sub_files = [f for f in sub_dir.iterdir() if f.is_file() and f.suffix in ['.pth', '.onnx']]
+                    # Match if model_id is part of stem or stem starts with model_id
+                    if any(model_id in f.stem for f in sub_files):
                         downloaded.add(model_name)
                         break
+
+                # 2. Legacy rembg behavior (< v2.0.80): ~/.u2net/<model_name>.onnx flat file layout
+                flat_files = [f for f in base_dir.iterdir() if f.is_file() and f.suffix in ['.pth', '.onnx']]
+                if any(model_id == f.stem for f in flat_files):
+                    downloaded.add(model_name)
+                    break
 
         # Save the downloaded model names to models.txt (one per line)
         with open(models_txt_path, "w", encoding="utf-8") as f:
@@ -363,7 +384,7 @@ class RemBGSetupApp(tk.Tk):
         title_label.pack(pady=(20, 10))
         
         subtitle_label = ttk.Label(header_frame, 
-                                     text="by Akascape | v1.3",
+                                     text="by Akascape | v1.4",
                                      style='Subtitle.TLabel')
         subtitle_label.pack(pady=(0, 20))
         
@@ -863,7 +884,10 @@ class RemBGSetupApp(tk.Tk):
         self._toggle_second_page_controls(state='disabled')
         self.download_btn.config(text="Downloading...")
         
+        self.total_downloads = len(selected)
         self.active_downloads = len(selected)
+        self.successful_downloads = []
+        self.failed_downloads = []
 
         for name in selected:
             pb = self.progressbars[name]
@@ -871,12 +895,22 @@ class RemBGSetupApp(tk.Tk):
             pb.config(mode="indeterminate")
             pb.start(15) # Speed of animation
             download_model(name, lambda success, n=name: self.download_complete(n, success), self)
-    
+
     def open_model_folder(self):
-        home_dir = Path.home()
-        models_dir = home_dir / ".u2net"
+        # Locate the active model folder (check modern ~/.rembg/models first, then legacy ~/.u2net)
+        model_dirs = get_model_directories()
+        models_dir = None
+        for d in model_dirs:
+            if d.exists() and d.is_dir():
+                models_dir = d
+                break
+
+        # Fallback to creating/opening ~/.rembg/models if neither exists yet
+        if models_dir is None:
+            models_dir = Path.home() / ".rembg" / "models"
+            models_dir.mkdir(parents=True, exist_ok=True)
         
-        # Check if the models directory exists
+        # Open directory
         if models_dir.exists() and models_dir.is_dir():
             try:
                 if sys.platform == 'win32':      # Windows
@@ -898,13 +932,29 @@ class RemBGSetupApp(tk.Tk):
         if success:
             pb.config(value=100)
             self.downloaded_models.add(model_name)
+            self.successful_downloads.append(model_name)
         else:
             pb.config(value=0)
-            messagebox.showwarning("Download Failed", f"Failed to download model: {model_name}. Please check your internet connection.")
+            self.failed_downloads.append(model_name)
 
-        # When all downloads are finished, re-enable button and refresh the page
+        # When all downloads are finished, notify user and refresh the page
         if self.active_downloads == 0:
-            messagebox.showinfo("Downloads Finished", "Model downloads are complete.")
+            if self.successful_downloads and not self.failed_downloads:
+                downloaded_list_str = "\n".join(f"• {m}" for m in self.successful_downloads)
+                messagebox.showinfo(
+                    "Downloads Complete",
+                    f"Model downloads are complete.\n\nDownloaded models:\n{downloaded_list_str}"
+                )
+            elif self.successful_downloads and self.failed_downloads:
+                downloaded_list_str = "\n".join(f"• {m}" for m in self.successful_downloads)
+                failed_list_str = "\n".join(f"• {m}" for m in self.failed_downloads)
+                messagebox.showwarning(
+                    "Downloads Finished",
+                    f"Downloads finished with errors.\n\nDownloaded models:\n{downloaded_list_str}\n\nFailed models:\n{failed_list_str}"
+                )
+            else:
+                messagebox.showerror("Downloads Failed", "Failed to download selected models. Please check your internet connection.")
+
             self.create_second_page()
             self.downloaded_models = check_downloaded_models()
             
