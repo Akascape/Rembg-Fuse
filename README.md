@@ -31,7 +31,7 @@ Free and open-source plugin that integrates the power of [rembg](https://github.
 9. The output will be displayed through the media out (if connected)
     
 ### ⮞ Automatic Setup for beginners [[Rembg_Manager](https://github.com/Akascape/Rembg-Fuse/blob/main/Rembg/rembg_manager.py)]
-An easy-to-use Python application has been developed to simplify the Rembg setup. Just open the `rembg_manager.py` file—either directly in Python or via the Fuse interface — and follow the installation steps.
+An easy-to-use Python application has been developed to simplify the Rembg setup. Just open the `rembg_manager.py` file, either directly in Python or via the Fuse interface, and follow the installation steps.
 
 <br> ![demo_rembg_manager](https://github.com/user-attachments/assets/a5de323e-6bf9-4823-ba59-fb7e29ddad65)
 
